@@ -1,0 +1,77 @@
+---------------Python All basic scripts----------
+#Code for list
+list_of_cloud = ["AWS", "Azure", "GCP"]
+list_of_env = ["Test","Prod","Deploy"]
+
+print(list_of_cloud[1])
+print(list_of_env[2])
+#Code for itteration in list
+for cloud in list_of_cloud:
+   if cloud =="aws":
+      print("Aws is best Cloud")
+    
+#Dictiobary
+cloud_dic = {
+    "aws":"AWS is best cloud",
+    "azure":"azure is best cloud"
+}
+print(cloud_dic["aws"])
+#Another command to get result
+print(cloud_dic.get("azure"))
+----------------------------------------------------------
+--------Code for Disk------
+---------code----
+import os
+import shutil
+print(os.getcwd())
+print(os.getlogin())
+
+total, used, free = shutil.disk_usage("/")
+print("The total disk is: ", total //(2**30))
+print("The used disk is", used //(2**30))
+print
+("The free disk is: ", free //(2**30))
+-------------------------------------------------------------
+--------aws s3 upload using python----
+import boto3
+
+s3 = boto3.resource('s3')
+c = 0
+for bucket in s3.buckets.all():
+    print(bucket)
+    print(bucket.name)
+    c+1
+
+print(c)
+
+s3.Bucket("rahul-bucket-s3").upload_file("linux.py","linux.py")
+-------------Ec2 Instance creation-----------------------
+import boto3
+
+ec2 = boto3.client('ec2',
+                   'us-east-1',
+                   aws_access_key_id='AKIATGIZZJYAWCT63BCL',
+                   aws_secret_access_key='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')
+
+#Function for running instances
+conn = ec2.run_instances(InstanceType="t2.micro",
+                         MaxCount=1,
+                         MinCount=1,
+                         ImageId="ami-06e46074ae430fba6")
+print(conn)
+---------------------------------------------------
+------------Terminate instances---------
+import boto3
+
+# Connect to the EC2 service
+ec2 = boto3.client('ec2',
+                                'us-east-1',
+                                aws_access_key_id='AKIATGIZZJYAWCT63BCL',
+                                aws_secret_access_key='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')
+
+# Terminate the instance with the specified ID
+response = ec2.terminate_instances(InstanceIds=['i-090bd940b99264801'])
+
+# Print the response
+print(response)
+--------------------------------
